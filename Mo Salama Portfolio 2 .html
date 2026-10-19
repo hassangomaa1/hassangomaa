@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مو سلامة | Senior Graphic Designer & 3D Visualizer</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 Free Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts: Readex Pro, Cairo, & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Readex+Pro:wght@400;600;700;800;900&family=Tajawal:wght@500;700;900&family=Outfit:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF5500',
+                            orangeGlow: '#FF7700',
+                            bg: '#0A060E',
+                            card: 'rgba(20, 14, 26, 0.85)',
+                            border: 'rgba(255, 255, 255, 0.12)'
+                        }
+                    },
+                    fontFamily: {
+                        arabicTitle: ['Readex Pro', 'Tajawal', 'Cairo', 'sans-serif'],
+                        arabicBody: ['Cairo', 'sans-serif'],
+                        english: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Global Page Base & Performance Setup */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+            margin: 0;
+            padding: 0;
+            background-color: #0A060E;
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* SUN AURA / GLOWING ORANGE BACKDROP */
+        .sun-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -55%);
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, #FF5500 0%, #D83A00 45%, rgba(255, 85, 0, 0.15) 70%, rgba(10, 6, 14, 0) 85%);
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        @media (min-width: 768px) {
+            .sun-aura {
+                width: 480px;
+                height: 480px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .sun-aura {
+                width: 520px;
+                height: 520px;
+            }
+        }
+
+        /* ORBITAL GRID LINES BACKGROUND */
+        .orbital-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 50% 45%, rgba(255, 85, 0, 0.12) 0%, transparent 65%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* HEADLINE GRADIENT TEXT */
+        .headline-accent {
+            font-family: 'Readex Pro', 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFD0B8 20%, #FF6611 60%, #C42B00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(255, 85, 0, 0.3));
+        }
+
+        /* FLOATING STAT BADGES / NODES */
+        .stat-node {
+            background: rgba(18, 12, 24, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 9999px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.25s ease-out;
+            user-select: none;
+            z-index: 20;
+            white-space: nowrap;
+        }
+
+        .stat-node:hover {
+            transform: scale(1.06) translateY(-2px);
+            border-color: rgba(255, 85, 0, 0.8);
+            box-shadow: 0 12px 35px rgba(255, 85, 0, 0.25);
+        }
+
+        /* SVG CONNECTOR LINES */
+        .connector-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* DUAL SLANTED TICKER / MARQUEE */
+        .marquee-wrapper {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        .marquee-ribbon-top {
+            transform: rotate(-2.2deg) scale(1.03) translate3d(0, 0, 0);
+            background: rgba(16, 10, 22, 0.96);
+            border-top: 1px solid rgba(255, 85, 0, 0.45);
+            border-bottom: 1px solid rgba(255, 85, 0, 0.45);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            will-change: transform;
+        }
+
+        .marquee-ribbon-bottom {
+            transform: rotate(-0.8deg) scale(1.03) translate3d(0, 0, 0);
+            background: rgba(10, 6, 14, 0.98);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            margin-top: -12px;
+            will-change: transform;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .marquee-track {
+            display: flex;
+            width: 200%;
+            animation: scrollMarquee 32s linear infinite;
+            will-change: transform;
+        }
+
+        /* LIGHTWEIGHT PULSE INDICATOR */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.25); }
+        }
+        .pulse-dot {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A060E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF5500;
+            border-radius: 4px;
+        }
+
+        /* CUSTOM LIGHTBOX ANIMATION */
+        .modal-animate-in {
+            animation: fadeInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body class="relative min-h-screen flex flex-col justify-between w-full bg-[#0A060E] text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 w-full px-4 sm:px-8 py-3.5 bg-[#0A060E]/85 backdrop-blur-md border-b border-white/10">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <!-- Brand Logo & Main Nav Links -->
+            <div class="flex items-center gap-6 lg:gap-8">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black font-black text-xl shadow-md group-hover:scale-105 transition">
+                        <span class="font-arabicTitle">م</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation -->
+                <ul class="hidden lg:flex items-center gap-6 text-xs xl:text-sm font-semibold text-gray-300">
+                    <li><a href="#hero" class="px-4 py-1.5 rounded-full bg-white/10 text-white font-bold transition">الرئيسية</a></li>
+                    <li><a href="#portfolio" class="hover:text-brand-orange transition">الأعمال</a></li>
+                    <li><a href="#courses" class="hover:text-brand-orange transition">الكورسات</a></li>
+                    <li><a href="#products" class="hover:text-brand-orange transition">المنتجات</a></li>
+                    <li><a href="#about" class="hover:text-brand-orange transition">الحكاية</a></li>
+                    <li><a href="#reviews" class="hover:text-brand-orange transition">الآراء والتواصل</a></li>
+                </ul>
+            </div>
+
+            <!-- Header Action Controls -->
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                
+                <!-- Search Button -->
+                <button onclick="toggleSearchModal()" aria-label="بحث" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 flex items-center justify-center text-gray-300 hover:text-white transition">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </button>
+
+                <!-- Language Switcher -->
+                <button aria-label="تغيير اللغة" class="hidden sm:flex w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 items-center justify-center text-xs font-bold font-english text-gray-300 hover:text-white transition">
+                    EN
+                </button>
+
+                <!-- Control Panel Pill -->
+                <a href="#dashboard" onclick="openModal('control-panel-modal')" class="hidden sm:flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 px-3.5 py-1.5 rounded-full text-xs font-bold text-gray-200 transition">
+                    <span class="w-2 h-2 rounded-full bg-brand-orange pulse-dot"></span>
+                    لوحة التحكم
+                </a>
+
+                <!-- CTA Button -->
+                <button onclick="openModal('contact-modal')" class="bg-gradient-to-r from-brand-orange to-brand-orangeGlow hover:brightness-110 text-white text-xs sm:text-sm font-black px-4 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-lg shadow-brand-orange/25 transition transform hover:scale-105 active:scale-95">
+                    ابدأ مشروع
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="القائمة" class="lg:hidden w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-3 max-w-7xl mx-auto bg-brand-bg/95 border border-white/15 rounded-2xl p-4 space-y-2">
+            <a href="#hero" class="block py-2 text-brand-orange font-bold border-b border-white/5">الرئيسية</a>
+            <a href="#portfolio" class="block py-2 hover:text-brand-orange border-b border-white/5">الأعمال والمشاريع</a>
+            <a href="#courses" class="block py-2 hover:text-brand-orange border-b border-white/5">الكورسات التدريبية</a>
+            <a href="#products" class="block py-2 hover:text-brand-orange border-b border-white/5">المنتجات الرقمية</a>
+            <a href="#about" class="block py-2 hover:text-brand-orange border-b border-white/5">الحكاية والخبرة</a>
+            <a href="#reviews" class="block py-2 hover:text-brand-orange">الآراء والتواصل</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section id="hero" class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6 pb-12 sm:py-12 flex-1 flex flex-col justify-center min-h-[calc(100vh-80px)]">
+        
+        <!-- Background Orbital Grid -->
+        <div class="orbital-grid"></div>
+
+        <!-- MAIN HERO CONTENT: DESKTOP SIDE-BY-SIDE GRID -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center relative z-10">
+            
+            <!-- RIGHT SIDE (DESKTOP): TYPOGRAPHY & CTA -->
+            <div class="lg:col-span-6 flex flex-col items-start text-right order-1 lg:order-1">
+                
+                <!-- Role Tag -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/15 text-xs font-semibold text-gray-300 mb-5">
+                    <span class="w-2 h-2 rounded-full bg-brand-orange pulse-dot"></span>
+                    <span class="font-english tracking-wider font-extrabold text-white">SENIOR GRAPHIC DESIGNER</span>
+                    <span class="text-gray-500">•</span>
+                    <span class="text-gray-300">سوشيال ميديا وهويات 3D</span>
+                </div>
+
+                <!-- BOLD ARABIC HEADLINE -->
+                <h1 class="font-arabicTitle font-black text-4xl sm:text-6xl xl:text-7xl leading-[1.12] text-white mb-3">
+                    التصميم الحلو <br>
+                    <span class="text-white">بدأ من</span> <br>
+                    <span class="headline-accent inline-block text-5xl sm:text-7xl xl:text-8xl mt-1">التـرتيــب</span>
+                </h1>
+
+                <!-- ENGLISH SUB-HEADLINE -->
+                <p class="font-english italic text-xs sm:text-sm font-semibold tracking-wider text-gray-400 mb-5">
+                    Layout makes your design <span class="text-white font-black not-italic">Awesome</span> or <span class="text-gray-500 font-normal">out.</span>
+                </p>
+
+                <!-- ARABIC BIO DESCRIPTION -->
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-lg mb-7">
+                    أنا مو سلامة، بصمم بوستات وهويات بتشتغل في السوق، وبعلّم للمصممين الجدد يختصروا الطريق اللي أخدته لوحدي.
+                </p>
+
+                <!-- ACTION BUTTONS & SOCIALS -->
+                <div class="flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
+                    <!-- CTA 1: View Work -->
+                    <a href="#portfolio" class="flex-1 sm:flex-none text-center bg-gradient-to-r from-brand-orange to-brand-orangeGlow text-white text-sm font-black px-8 py-3.5 rounded-full shadow-lg shadow-brand-orange/30 transition transform hover:scale-105 active:scale-95">
+                        شوف شغلي
+                    </a>
+
+                    <!-- CTA 2: Courses -->
+                    <a href="#courses" class="flex-1 sm:flex-none text-center bg-white/5 hover:bg-white/10 border border-white/15 text-white text-sm font-bold px-7 py-3.5 rounded-full transition">
+                        الكورسات
+                    </a>
+
+                    <!-- Social Icons Row -->
+                    <div class="flex items-center gap-2 mr-auto sm:mr-4 pt-2 sm:pt-0">
+                        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-orange border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
+                            <i class="fa-brands fa-facebook-f text-xs"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-orange border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
+                            <i class="fa-brands fa-instagram text-xs"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-orange border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
+                            <i class="fa-brands fa-linkedin-in text-xs"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-orange border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
+                            <i class="fa-brands fa-youtube text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LEFT SIDE (DESKTOP): PERSON PORTRAIT WITH SUN AURA & FLOATING NODES -->
+            <div class="lg:col-span-6 relative flex items-center justify-center min-h-[420px] sm:min-h-[520px] order-2 lg:order-2">
+                
+                <!-- Center Sun Aura Overlay -->
+                <div class="sun-aura"></div>
+
+                <!-- SVG Connecting Lines -->
+                <svg class="connector-svg hidden sm:block" viewBox="0 0 500 500" fill="none">
+                    <!-- Line to Top-Left Node -->
+                    <path d="M 120 100 Q 200 120 230 180" stroke="rgba(255, 85, 0, 0.35)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <!-- Line to Mid-Left Behance Node -->
+                    <path d="M 80 260 Q 160 250 210 280" stroke="rgba(255, 85, 0, 0.35)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <!-- Line to Bottom-Left Experience Node -->
+                    <path d="M 140 400 Q 200 370 240 340" stroke="rgba(255, 85, 0, 0.35)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <!-- Line to Top-Right Rating Node -->
+                    <path d="M 380 140 Q 320 160 280 200" stroke="rgba(255, 85, 0, 0.35)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <!-- Line to Mid-Right Delivery Node -->
+                    <path d="M 400 320 Q 340 310 290 320" stroke="rgba(255, 85, 0, 0.35)" stroke-width="1.5" stroke-dasharray="4 4" />
+                </svg>
+
+                <!-- High Quality Person Portrait -->
+                <div class="relative z-10 w-[260px] sm:w-[350px] md:w-[400px] flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" 
+                         alt="Mo Salama Graphic Designer" 
+                         class="w-full h-auto object-cover filter contrast-105 brightness-105 drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)]"
+                         style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);">
+                </div>
+
+                <!-- ALL FLOATING STAT NODES (MATCHING IMAGE SPECIFICATIONS) -->
+                
+                <!-- Node 1: Courses (Top Left) -->
+                <div class="stat-node absolute top-4 left-2 sm:left-6 px-3.5 py-1.5 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-orange pulse-dot"></span>
+                    <span class="text-xs font-black text-white font-english">7+</span>
+                    <span class="text-[11px] text-gray-300 font-semibold">كورسات مدفوعة</span>
+                </div>
+
+                <!-- Node 2: Behance Views (Mid Left) -->
+                <div class="stat-node absolute top-1/2 left-0 sm:left-2 -translate-y-12 px-3.5 py-2 flex flex-col">
+                    <div class="flex items-center gap-1.5 text-xs font-black text-white">
+                        <span class="text-brand-orange font-english">+23K</span>
+                        <i class="fa-regular fa-eye text-[11px] text-gray-400"></i>
+                    </div>
+                    <span class="text-[10px] text-gray-300">مشاهدة على Behance</span>
+                </div>
+
+                <!-- Node 3: Creative Media Badge (Lower Left) -->
+                <div class="stat-node absolute bottom-24 left-2 sm:left-8 px-3 py-1 flex items-center gap-1.5 bg-brand-orange/20 border-brand-orange/50">
+                    <span class="text-[11px] font-bold text-white font-english">Creative Media</span>
+                    <span class="text-[9px] bg-brand-orange text-white px-1.5 py-0.5 rounded-full font-black">KSA</span>
+                </div>
+
+                <!-- Node 4: Years of Experience (Bottom Left) -->
+                <div class="stat-node absolute bottom-8 left-12 sm:left-20 px-3.5 py-1.5 flex items-center gap-2">
+                    <span class="text-amber-400 font-black text-xs font-english">5+</span>
+                    <span class="text-[11px] text-gray-200 font-bold">سنين خبرة</span>
+                </div>
+
+                <!-- Node 5: Student Rating (Top Right) -->
+                <div class="stat-node absolute top-12 right-2 sm:right-6 px-3.5 py-1.5 flex items-center gap-2">
+                    <div class="flex items-center text-amber-400 font-bold text-xs font-english">
+                        <span>5.0/5</span>
+                        <i class="fa-solid fa-star text-[10px] mr-1"></i>
+                    </div>
+                    <span class="text-gray-300 text-[11px]">تقييم الطلاب • 2</span>
+                </div>
+
+                <!-- Node 6: Client Delivery Rating (Mid Right) -->
+                <div class="stat-node absolute top-1/2 right-0 sm:right-4 translate-y-6 px-3.5 py-1.5 flex items-center gap-2">
+                    <div class="flex items-center text-amber-400 font-bold text-xs font-english">
+                        <span>5.0/5</span>
+                        <i class="fa-solid fa-star text-[10px] mr-1"></i>
+                    </div>
+                    <span class="text-gray-300 text-[11px]">تسليم الصفقات • 1</span>
+                </div>
+
+                <!-- Node 7: Portfolio Tag (Bottom Right) -->
+                <div class="stat-node absolute bottom-12 right-6 sm:right-16 px-3 py-1 flex items-center gap-1.5 bg-brand-orange/20 border-brand-orange/50">
+                    <span class="text-[10px] text-gray-200 font-bold">محترف</span>
+                    <span class="text-[9px] bg-amber-500 text-black px-1.5 py-0.5 rounded-full font-black">KSA</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DUAL SLANTED 3D MARQUEE TICKERS (BOTTOM HERO) -->
+    <div class="marquee-wrapper my-6 py-2">
+        
+        <!-- Top Ribbon -->
+        <div class="marquee-ribbon-top py-2.5">
+            <div class="marquee-track text-xs sm:text-sm font-bold tracking-wider text-gray-200 uppercase font-english">
+                <div class="flex items-center gap-8 px-4">
+                    <span>LAYOUT</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>BLENDER 3D</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>PRESENTATIONS</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>BRAND IDENTITY</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>COMPANY PROFILE</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>CAMPAIGNS</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">سوشيال ميديا</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">ترتيب التصميم</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">ثري دي</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                </div>
+                <div class="flex items-center gap-8 px-4">
+                    <span>LAYOUT</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>BLENDER 3D</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>PRESENTATIONS</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>BRAND IDENTITY</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>COMPANY PROFILE</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span>CAMPAIGNS</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">سوشيال ميديا</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">ترتيب التصميم</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                    <span class="font-arabicBody">ثري دي</span> <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ribbon -->
+        <div class="marquee-ribbon-bottom py-2">
+            <div class="marquee-track text-[11px] sm:text-xs font-semibold tracking-wider text-gray-400 uppercase font-english opacity-80">
+                <div class="flex items-center gap-10 px-4">
+                    <span>3D VISUALIZATION</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span>CREATIVE DIRECTION</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span class="font-arabicBody">بوستات وسوشيال ميديا</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span>BRAND STRATEGY</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span class="font-arabicBody">بروفايل شركات ومؤسسات</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                </div>
+                <div class="flex items-center gap-10 px-4">
+                    <span>3D VISUALIZATION</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span>CREATIVE DIRECTION</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span class="font-arabicBody">بوستات وسوشيال ميديا</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span>BRAND STRATEGY</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                    <span class="font-arabicBody">بروفايل شركات ومؤسسات</span> <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SECTION 2: PORTFOLIO SHOWCASE & CATEGORY FILTERS -->
+    <section id="portfolio" class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-bold mb-3">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>معرض الأعمال والإبداعات</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-black text-white font-arabicTitle mb-3">
+                مشاريع صنعت فارقاً حقيقياً
+            </h2>
+            <p class="text-gray-400 text-xs sm:text-sm">
+                تصفح نماذج عمل احترافية مصممة خصيصاً لزيادة مبيعات العملاء وتثبيت الهوية البصرية.
+            </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+            <button onclick="filterPortfolio('all', this)" class="portfolio-btn bg-brand-orange text-white px-5 py-2 rounded-full text-xs font-bold transition shadow-lg shadow-brand-orange/20">الكل</button>
+            <button onclick="filterPortfolio('social', this)" class="portfolio-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 px-5 py-2 rounded-full text-xs font-bold transition">سوشيال ميديا</button>
+            <button onclick="filterPortfolio('brand', this)" class="portfolio-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 px-5 py-2 rounded-full text-xs font-bold transition">هوية بصرية</button>
+            <button onclick="filterPortfolio('3d', this)" class="portfolio-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 px-5 py-2 rounded-full text-xs font-bold transition">ثري دي Blender</button>
+            <button onclick="filterPortfolio('presentation', this)" class="portfolio-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 px-5 py-2 rounded-full text-xs font-bold transition">بريزنتيشن</button>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Grid Loaded Via JS -->
+        </div>
+
+    </section>
+
+    <!-- SECTION 3: COURSES & DIGITAL PRODUCTS -->
+    <section id="courses" class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 bg-white/[0.01] border-y border-white/5">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-bold mb-3">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>تعلّم واحترف</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-black text-white font-arabicTitle mb-3">
+                الكورسات والمنتجات الرقمية
+            </h2>
+            <p class="text-gray-400 text-xs sm:text-sm">
+                اختصر سنوات من التجربة والخطأ وتعلم أسرار الـ Layout والتصميم ثلاثي الأبعاد.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="courses-container">
+            <!-- Dynamic Courses Loaded Via JS -->
+        </div>
+
+    </section>
+
+    <!-- SECTION 4: ABOUT & CREATIVE PHILOSOPHY -->
+    <section id="about" class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 rounded-3xl p-6 sm:p-12 relative overflow-hidden">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>فلسفة التصميم</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-4xl font-black text-white font-arabicTitle leading-tight">
+                        التصميم ليس مجرد ألوان جميلة.. <br>
+                        <span class="text-brand-orange">هو نظام مرتب يحقق الأهداف</span>
+                    </h2>
+
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                        عبر أكثر من 5 سنوات في سوق العمل العربي والخليجي، قمت بتطوير منهجية قائمة على الـ Layout والترتيب البصري الذي يوجه عين المشاهد مباشرة نحو الرسالة التسويقية الأساسية.
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
+                            <span class="block text-3xl font-black text-brand-orange font-english">+150</span>
+                            <span class="text-xs text-gray-400 font-semibold">مشروع ناجح</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
+                            <span class="block text-3xl font-black text-amber-400 font-english">+2,400</span>
+                            <span class="text-xs text-gray-400 font-semibold">طالب ومتدرب</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center col-span-2 sm:col-span-1">
+                            <span class="block text-3xl font-black text-white font-english">100%</span>
+                            <span class="text-xs text-gray-400 font-semibold">التزام بالمواعيد</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md rounded-2xl overflow-hidden border border-white/15 bg-brand-bg p-2 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="Mo Salama Workspace" class="rounded-xl w-full h-80 object-cover">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: REVIEWS & TESTIMONIALS -->
+    <section id="reviews" class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-black text-white font-arabicTitle mb-3">
+                آراء العملاء والطلاب
+            </h2>
+            <p class="text-gray-400 text-xs sm:text-sm">
+                ما يقوله شركاء النجاح عن تجربة العمل والتدرب معي.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviews-container">
+            <!-- Dynamic Reviews Loaded Via JS -->
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative z-20 border-t border-white/10 bg-black/60 py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black font-black text-lg">
+                    <span>م</span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white">مو سلامة | Mo Salama</h3>
+                    <p class="text-[11px] text-gray-400">Senior Graphic Designer & 3D Visualizer</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 text-xs text-gray-400">
+                <a href="#hero" class="hover:text-white transition">الرئيسية</a>
+                <span>•</span>
+                <a href="#portfolio" class="hover:text-white transition">الأعمال</a>
+                <span>•</span>
+                <a href="#courses" class="hover:text-white transition">الكورسات</a>
+                <span>•</span>
+                <button onclick="openModal('contact-modal')" class="hover:text-white transition">التواصل المباشر</button>
+            </div>
+
+            <p class="text-xs text-gray-500">
+                جميع الحقوق محفوظة © 2026 - مو سلامة.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: CONTACT & START PROJECT FORM -->
+    <div id="contact-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="modal-animate-in relative w-full max-w-md bg-[#0D0814] border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            
+            <button onclick="closeModal('contact-modal')" aria-label="إغلاق" class="absolute top-4 left-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-300 hover:text-white transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div class="flex items-center gap-2 mb-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-orange pulse-dot"></span>
+                <span class="text-xs font-bold text-brand-orange uppercase">تواصل مباشر</span>
+            </div>
+
+            <h3 class="text-2xl font-black text-white font-arabicTitle mb-4">ابدأ مشروعك الآن</h3>
+
+            <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1.5">الاسم بالكامل</label>
+                    <input type="text" required placeholder="أحمد المحمود" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-orange">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1.5">رقم الواتساب أو الإيميل</label>
+                    <input type="text" id="contact-input" required placeholder="+966 5x xxx xxxx / name@domain.com" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-orange">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1.5">نوع الخدمة المطلوبة</label>
+                    <select id="service-type" class="w-full bg-[#160E20] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-orange">
+                        <option value="سوشيال ميديا">تصميم بوستات سوشيال ميديا</option>
+                        <option value="هوية بصرية">تصميم هوية بصرية كاملة</option>
+                        <option value="3D Visuals">تصميم ثري دي Blender 3D</option>
+                        <option value="بريزنتيشن">تصميم العروض التقديمية Presentations</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1.5">تفاصيل المشروع</label>
+                    <textarea id="project-details" rows="3" required placeholder="اكتب نبذة مختصرة عن المشروع والميزانية..." class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-orange"></textarea>
+                </div>
+                
+                <div class="flex gap-2 pt-2">
+                    <button type="submit" class="flex-1 bg-brand-orange text-white font-black py-3 rounded-xl shadow-lg hover:brightness-110 transition">
+                        إرسال الطلب
+                    </button>
+                    <button type="button" onclick="sendWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-3 rounded-xl transition flex items-center gap-2 text-xs">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span>واتساب</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SEARCH MODAL -->
+    <div id="search-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-md">
+        <div class="modal-animate-in relative w-full max-w-lg bg-[#0D0814] border border-white/20 rounded-2xl p-4 shadow-2xl">
+            <div class="flex items-center gap-3 bg-white/5 border border-white/15 rounded-xl px-4 py-2.5">
+                <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
+                <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="ابحث عن كورس، مشروع، أو مقالة..." class="w-full bg-transparent text-sm text-white focus:outline-none">
+                <button onclick="toggleSearchModal()" class="text-xs text-gray-400 hover:text-white">إلغاء</button>
+            </div>
+            <div id="search-results" class="mt-4 space-y-2 max-h-60 overflow-y-auto text-xs text-gray-300">
+                <p class="text-gray-500 text-center py-4">ابحث باستخدام كلمات مثل: "هوية", "3D", "كورسات"...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: CONTROL PANEL DEMO -->
+    <div id="control-panel-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="modal-animate-in relative w-full max-w-sm bg-[#0D0814] border border-white/20 rounded-3xl p-6 shadow-2xl text-center">
+            <button onclick="closeModal('control-panel-modal')" aria-label="إغلاق" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+            <div class="w-12 h-12 rounded-full bg-brand-orange/20 border border-brand-orange text-brand-orange flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-[#fa-sliders]"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white font-arabicTitle mb-1">لوحة التحكم</h3>
+            <p class="text-xs text-gray-400 mb-4">هذه المعاينة مخصصة للإدارة لتعديل بيانات البورتفوليو وإحصائيات الطلاب.</p>
+            <button onclick="closeModal('control-panel-modal')" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 rounded-xl text-xs transition">
+                إغلاق المعاينة
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-[#160E20] border border-brand-orange text-white text-xs font-bold px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-brand-orange text-base"></i>
+        <span id="toast-msg">تمت العملية بنجاح!</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA SOURCES
+        const portfolioItems = [
+            { id: 1, title: 'هوية بصرية كاملة لمحمصة وكافيه', cat: 'brand', catLabel: 'هوية بصرية', img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=600&auto=format&fit=crop' },
+            { id: 2, title: 'حملة إعلانية تسويقية لماركة عطور', cat: 'social', catLabel: 'سوشيال ميديا', img: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=600&auto=format&fit=crop' },
+            { id: 3, title: 'رندر منتجات 3D ثلاثي الأبعاد بالبلندر', cat: '3d', catLabel: 'ثري دي Blender', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=600&auto=format&fit=crop' },
+            { id: 4, title: 'تصميم العرض التقديمي للشركات بريزنتيشن', cat: 'presentation', catLabel: 'بريزنتيشن', img: 'https://images.unsplash.com/photo-1542744094-3a31b272c490?q=80&w=600&auto=format&fit=crop' },
+            { id: 5, title: 'بوستات إبداعية لمشروب غازي عالمي', cat: 'social', catLabel: 'سوشيال ميديا', img: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=600&auto=format&fit=crop' },
+            { id: 6, title: 'تصميم وتغليف منتجات فاخرة', cat: 'brand', catLabel: 'هوية بصرية', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop' }
+        ];
+
+        const courseItems = [
+            { id: 1, title: 'كورس أسرار الـ Layout وترتيب عناصر التصميم', price: '$49', oldPrice: '$99', img: 'https://images.unsplash.com/photo-1542744094-3a31b272c490?q=80&w=600&auto=format&fit=crop' },
+            { id: 2, title: 'احتراف Blender 3D للمصممين الجرافيك', price: '$79', oldPrice: '$149', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop' },
+            { id: 3, title: 'حزمة الملحقات والقوالب الإبداعية الجاهزة v2', price: '$29', oldPrice: '$50', img: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=600&auto=format&fit=crop' }
+        ];
+
+        const reviewItems = [
+            { name: 'م/ خالد العتيبي', role: 'مدير تسويق - الرياض', text: 'شغل احترافي جداً وفهم عميق لطبيعة الهويات البصرية الخليجية. السرعة والدقة ممتازة.' },
+            { name: 'سارة الشمري', role: 'مصممة جرافيك مستقلة', text: 'كورس الترتيب والـ Layout غير طريقتي في العمل تماماً واختصر علي سنوات طويلة من التخبيط.' },
+            { name: 'عمر الفاروق', role: 'مؤسس شركة برمجيات', text: 'تصاميم العروض التقديمية والـ 3D ساعدتنا في إقناع المستثمرين وإغلاق الجولة التمويلية.' }
+        ];
+
+        // RENDER FUNCTIONS
+        function renderPortfolio(items) {
+            const grid = document.getElementById('portfolio-grid');
+            grid.innerHTML = items.map(item => `
+                <div class="group bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden hover:border-brand-orange transition transform hover:-translate-y-1">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                            <span class="text-xs font-bold text-white bg-brand-orange px-3 py-1 rounded-full">معاينة التفاصيل</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">${item.catLabel}</span>
+                        <h3 class="text-base font-bold text-white font-arabicTitle mt-1">${item.title}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterPortfolio(cat, btnElement) {
+            document.querySelectorAll('.portfolio-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-orange', 'text-white', 'shadow-lg', 'shadow-brand-orange/20');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+            btnElement.classList.remove('bg-white/5', 'text-gray-300');
+            btnElement.classList.add('bg-brand-orange', 'text-white', 'shadow-lg', 'shadow-brand-orange/20');
+
+            if (cat === 'all') renderPortfolio(portfolioItems);
+            else renderPortfolio(portfolioItems.filter(i => i.cat === cat));
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('courses-container');
+            container.innerHTML = courseItems.map(course => `
+                <div class="bg-white/[0.02] border border-white/10 rounded-3xl p-5 hover:border-brand-orange/60 transition">
+                    <div class="rounded-2xl overflow-hidden h-44 mb-4">
+                        <img src="${course.img}" alt="${course.title}" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-arabicTitle mb-3 leading-snug">${course.title}</h3>
+                    <div class="flex items-center justify-between pt-3 border-t border-white/10">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl font-black text-brand-orange font-english">${course.price}</span>
+                            <span class="text-xs text-gray-500 line-through font-english">${course.oldPrice}</span>
+                        </div>
+                        <button onclick="showToast('تم اختيار الكورس! سنتواصل معك عبر الواتساب')" class="bg-brand-orange hover:brightness-110 text-white text-xs font-black px-4 py-2 rounded-xl transition">
+                            اشترك الآن
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = reviewItems.map(rev => `
+                <div class="bg-white/[0.02] border border-white/10 rounded-2xl p-6">
+                    <div class="flex items-center text-amber-400 text-xs mb-3 gap-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">"${rev.text}"</p>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">${rev.name}</h4>
+                        <span class="text-[10px] text-gray-500">${rev.role}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // MODAL & INTERACTION HANDLERS
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (!query) {
+                resultsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">ابحث باستخدام كلمات مثل: "هوية", "3D", "كورسات"...</p>';
+                return;
+            }
+
+            const matchedPortfolio = portfolioItems.filter(p => p.title.toLowerCase().includes(query));
+            const matchedCourses = courseItems.filter(c => c.title.toLowerCase().includes(query));
+
+            let html = '';
+            matchedPortfolio.forEach(p => {
+                html += `<div class="p-2 rounded bg-white/5 flex items-center justify-between"><span>${p.title}</span><span class="text-[9px] bg-brand-orange px-2 py-0.5 rounded">مشروع</span></div>`;
+            });
+            matchedCourses.forEach(c => {
+                html += `<div class="p-2 rounded bg-white/5 flex items-center justify-between"><span>${c.title}</span><span class="text-[9px] bg-amber-500 text-black px-2 py-0.5 rounded">كورس</span></div>`;
+            });
+
+            resultsContainer.innerHTML = html || '<p class="text-gray-400 text-center py-2">لا توجد نتائج مطابقة</p>';
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            closeModal('contact-modal');
+            showToast('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+            e.target.reset();
+        }
+
+        function sendWhatsApp() {
+            const details = document.getElementById('project-details').value || 'استفسار عن المشاريع';
+            const service = document.getElementById('service-type').value;
+            const text = encodeURIComponent(`مرحباً مو سلامة، أرغب في الاستفسار عن خدمة (${service}): ${details}`);
+            window.open(`https://wa.me/201000000000?text=${text}`, '_blank');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPortfolio(portfolioItems);
+            renderCourses();
+            renderReviews();
+
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
